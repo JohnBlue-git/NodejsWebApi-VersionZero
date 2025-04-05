@@ -1,6 +1,5 @@
 
 class AbstractController {
-  // Placeholder for common logic to be inherited by other controllers
   constructor() {
     if (new.target === AbstractController) {
       throw new TypeError('Cannot construct AbstractController instances directly');
@@ -12,7 +11,29 @@ class AbstractController {
     res.status(statusCode).json({ message });
   }
 
-  // You can add other shared methods here if needed, like validation, logging, etc.
+  async getAllPersons(req, res) {
+    throw new Error('method must be implemented');
+  }
+
+  async getPersonById(req, res, id) {
+    throw new Error('method must be implemented');
+  }
+
+  async createPerson(req, res) {
+    throw new Error('method must be implemented');
+  }
+
+  async patchPersonById(req, res, id) {
+    throw new Error('method must be implemented');
+  }
+
+  async deletePerson(req, res, id) {
+    throw new Error('method must be implemented');
+  }
+
+  async deletePersons(req, res) {
+    throw new Error('method must be implemented');
+  }
 }
 
 module.exports = AbstractController;

@@ -26,6 +26,10 @@ class IPersonService {
     async deletePerson(id) {
       throw new Error('deletePerson() method must be implemented');
     }
+
+    async deletePersons() {
+      throw new Error('deletePersons() method must be implemented');
+    }
   }
   
   module.exports = IPersonService;

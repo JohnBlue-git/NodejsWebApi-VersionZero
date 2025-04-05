@@ -11,17 +11,17 @@ class AdvancePersonService extends IPersonService {
     return this.persons;
   }
 
-  async createPerson(data) {
-    const newPerson = new Person(data.name, data.age);
-    this.persons.push(newPerson);
-    return newPerson;
-  }
-
   async getPersonById(id) {
     if (id + 1 > this.persons.length()) {
       return undefined;
     }
     return this.persons.indexOf(id);
+  }
+
+  async createPerson(data) {
+    const newPerson = new Person(data.name, data.age);
+    this.persons.push(newPerson);
+    return newPerson;
   }
 
   async updatePerson(id, data) {
@@ -43,6 +43,10 @@ class AdvancePersonService extends IPersonService {
     }
     this.persons.splice(index, 1);
     return true;
+  }
+
+  async deletePersons() {
+    this.persons = [];
   }
 }
 
