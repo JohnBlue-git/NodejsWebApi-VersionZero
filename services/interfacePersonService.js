@@ -7,6 +7,7 @@ class IPersonService {
     }
   
     // Methods that must be implemented
+
     async getAllPersons() {
       throw new Error('getAllPersons() method must be implemented');
     }
@@ -19,12 +20,8 @@ class IPersonService {
       throw new Error('getPersonById() method must be implemented');
     }
   
-    async updatePerson(id, data) {
-      throw new Error('updatePerson() method must be implemented');
-    }
-  
-    async deletePerson(id) {
-      throw new Error('deletePerson() method must be implemented');
+    async deletePersonById(id) {
+      throw new Error('deletePersonById() method must be implemented');
     }
 
     async deletePersons() {

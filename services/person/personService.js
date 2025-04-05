@@ -12,10 +12,10 @@ class PersonService extends IPersonService {
   }
 
   async getPersonById(id) {
-    if (id + 1 > this.persons.length()) {
+    if (id + 1 > this.persons.length) {
       return undefined;
     }
-    return this.persons.indexOf(id);
+    return this.persons[id];
   }
 
   async createPerson(data) {
@@ -24,24 +24,11 @@ class PersonService extends IPersonService {
     return newPerson;
   }
 
-  async updatePerson(id, data) {
-    if (id + 1 > this.persons.length()) {
-      return undefined;
-    }
-    const person = this.persons.indexOf(id);
-    if (person) {
-      person.name = data.name || person.name;
-      person.age = data.age || person.age;
-      return person;
-    }
-    return undefined;
-  }
-
-  async deletePerson(id) {
-    if (id + 1 > this.persons.length()) {
+  async deletePersonById(id) {
+    if (id + 1 > this.persons.length) {
       return false;
     }
-    this.persons.splice(index, 1);
+    this.persons.splice(id, 1);
     return true;
   }
 

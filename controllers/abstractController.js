@@ -27,7 +27,7 @@ class AbstractController {
     throw new Error('method must be implemented');
   }
 
-  async deletePerson(req, res, id) {
+  async deletePersonById(req, res, id) {
     throw new Error('method must be implemented');
   }
 

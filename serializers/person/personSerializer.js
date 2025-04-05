@@ -2,10 +2,9 @@ const Person = require('../../models/person/person');
 
 class PersonSerializer {
   static serialize(person) {
-    // Example of simple serialization
     return {
-      name: person.name,
-      age: person.age,
+      name: person.getName(),
+      age: person.getAge(),
     };
   }
 

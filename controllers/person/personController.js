@@ -11,20 +11,24 @@ class PersonController extends AbstractController {
   async getAllPersons(req, res) {
     try {
       const persons = await this.personService.getAllPersons();
-      const serializedPersons = this.personService.serializeMultiple(persons);
+      const serializedPersons = PersonSerializer.serializeMultiple(persons);
       res.status(200).json(serializedPersons);
     } catch (err) {
-      this.handleError(res, 'Error fetching persons', 500);
+      this.handleError(res, 'Error fetching persons; ' + err, 500);
     }
   }
 
   async getPersonById(req, res, id) {
     try {
       const person = await this.personService.getPersonById(id);
-      const serializedPerson = this.personService.serialize(person);
+      if (person === undefined) {
+        res.status(404).json({error: 'Error person with id not found'});
+        return;
+      }
+      const serializedPerson = PersonSerializer.serialize(person);
       res.status(200).json(serializedPerson);
     } catch (err) {
-      this.handleError(res, 'Error get person', 500);
+      this.handleError(res, 'Error get person; ' + err, 500);
     }
   }
 
@@ -42,8 +46,8 @@ class PersonController extends AbstractController {
   async patchPersonById(req, res, id) {
     try {
       const person = await this.personService.getPersonById(id);
-      if (!person) {
-        this.handleError(res, 'Error person with id not found; ', 404);
+      if (person === undefined) {
+        res.status(404).json({error: 'Error person with id not found'});
         return;
       }
       if (req.body.name) {
@@ -59,10 +63,14 @@ class PersonController extends AbstractController {
     }
   }
 
-  async deletePerson(req, res, id) {
+  async deletePersonById(req, res, id) {
     try {
-      await this.personService.deletePerson(id);
-      res.status(204)
+      const check = await this.personService.deletePersonById(id);
+      if (check === true) {
+        res.status(204).send();;
+        return;
+      }
+      res.status(404).json({error: 'Error person with id not found'});
     } catch (err) {
       this.handleError(res, 'Error deleting person; ' + err, 500);
     }
@@ -71,7 +79,7 @@ class PersonController extends AbstractController {
   async deletePersons(req, res) {
     try {
       await this.personService.deletePersons();
-      res.status(204)
+      res.status(204).send();;
     } catch (err) {
       this.handleError(res, 'Error deleting persons; ' + err, 500);
     }

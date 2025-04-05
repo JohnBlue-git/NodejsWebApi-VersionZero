@@ -25,7 +25,7 @@ router.patch('/:id', (req, res) => {
 // DELETE by id
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
-    personController.deletePersons(req, res, id);
+    personController.deletePersonById(req, res, id);
   });
 // DELETE collection
 router.delete('/', (req, res) => personController.deletePersons(req, res));
