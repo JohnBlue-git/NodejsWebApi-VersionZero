@@ -18,6 +18,10 @@ When pip install package is not directly accessable (we have a script to install
 sudo ./install_with_python3-xyz.sh
 ```
 
+## Running the web api
+```sh
+```
+
 ## Running the Tests
 
 To run all tests
