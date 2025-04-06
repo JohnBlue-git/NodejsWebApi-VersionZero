@@ -37,7 +37,7 @@ The structure is organized similarly to your C++ project, and it also includes c
 │   ├── interfacePersonService.js
 │   └── person
 │       └── personService.js
-└── tests
+└── tests-pytests
     ├── README.md
     ├── __pycache__
     │   ├── test_api_advance_person.cpython-312-pytest-8.3.5.pyc
@@ -91,17 +91,24 @@ npm install express body-parser supertest
 ```
 
 ### Run program
+Based on package.json
+```json
+"scripts": {
+    "start": "node server.js",
+    "test": "jest"
+}
+```
+Command
 ```console
-# Run server
-node server.js
-# or
 npm start
-
-# Run test (if have test writtern in .js)
-npm test
 ```
 
 ## Tests
+
+### Test via jtest
+```console 
+npm test
+```
 
 ### Test via pytest
 We have provide e2e tests via python scripts \
