@@ -1,6 +1,14 @@
 const Person = require('../../models/person/person');
 const IPersonService = require('../interfacePersonService');
 
+/*
+ Disclaimer:
+i want to use hashtable to replace 
+    this.persons = [];
+but javascript don't have native class for hashtable
+so this advance_person feature is abandomed
+*/
+
 class AdvancePersonService extends IPersonService {
   constructor() {
     super();
