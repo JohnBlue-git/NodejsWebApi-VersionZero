@@ -93,7 +93,7 @@ npm install express body-parser supertest
 ### Run program
 ```console
 # Run server
-node ../server.js
+node server.js
 # or
 npm start
 
