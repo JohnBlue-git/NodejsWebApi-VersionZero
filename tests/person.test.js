@@ -1,54 +1,73 @@
-const axios = require('axios');
+const { expect, test, describe, beforeAll } = require('@jest/globals');
+const http = require('http');
+const app = require('../app.js');
 
 const BASE_URL = 'http://localhost:1999';
 const PERSON_API = '/api/person';
 
-describe('Person API Tests', () => {
+let server;
 
+// jest.setTimeout(3000); // Set global timeout to 3 seconds
+
+// beforeAll(async () => {
+//   server = http.createServer(app);
+//   await new Promise((resolve) => server.listen(1999, resolve));
+//   // Optional delay to ensure server is fully ready
+//   await new Promise((res) => setTimeout(res, 500));
+// });
+
+// afterAll(async () => {
+//   await new Promise((resolve) => server.close(resolve));
+// });
+
+describe('Person API Tests (fetch)', () => {
   test('POST /api/person', async () => {
     const payload = { name: 'John Doe', age: 30 };
-    const response = await axios.post(`${BASE_URL}${PERSON_API}`, payload, {
-      headers: { 'Content-Type': 'application/json' }
+    const response = await fetch(`${BASE_URL}${PERSON_API}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
+
     expect(response.status).toBe(201);
-  }, 1);  // First test
+  });
 
   test('GET /api/person', async () => {
-    const response = await axios.get(`${BASE_URL}${PERSON_API}`);
+    const response = await fetch(`${BASE_URL}${PERSON_API}`);
     expect(response.status).toBe(200);
-  }, 2);  // Second test
+  });
 
   test('GET /api/person/0', async () => {
-    const response = await axios.get(`${BASE_URL}${PERSON_API}/0`);
+    const response = await fetch(`${BASE_URL}${PERSON_API}/0`);
     expect(response.status).toBe(200);
-  }, 3);  // Third test
+  });
 
   test('GET /api/person/42 should return 404', async () => {
-    try {
-      await axios.get(`${BASE_URL}${PERSON_API}/42`);
-    } catch (error) {
-      expect(error.response.status).toBe(404);
-    }
-  }, 4);  // Fourth test
+    const response = await fetch(`${BASE_URL}${PERSON_API}/42`);
+    expect(response.status).toBe(404);
+  });
 
   test('PATCH /api/person/0', async () => {
     const payload = { name: 'John Blue', age: 18 };
-    const response = await axios.patch(`${BASE_URL}${PERSON_API}/0`, payload, {
-      headers: { 'Content-Type': 'application/json' }
+    const response = await fetch(`${BASE_URL}${PERSON_API}/0`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
+
     expect(response.status).toBe(200);
-  }, 5);  // Fifth test
+  });
 
   test('DELETE /api/person/0', async () => {
-    const response = await axios.delete(`${BASE_URL}${PERSON_API}/0`);
+    const response = await fetch(`${BASE_URL}${PERSON_API}/0`, {
+      method: 'DELETE'
+    });
+
     expect(response.status).toBe(204);
-  }, 6);  // Sixth test
+  });
 
   test('GET /42 should return 404', async () => {
-    try {
-      await axios.get(`${BASE_URL}/42`);
-    } catch (error) {
-      expect(error.response.status).toBe(404);
-    }
-  }, 7);  // Seventh test
+    const response = await fetch(`${BASE_URL}/42`);
+    expect(response.status).toBe(404);
+  });
 });
